@@ -1,13 +1,23 @@
-import React, {useState} from "react";
-import "./style.css";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AuthRoute from "./components/AuthRoute";
+import AuthProvider from "./context/auth";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
-export default function App() {
-  const [user, setUser] = useState(null);
-  const authenticated = user != null
+const App = () => {
   return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Switch>
+          <AuthRoute path="/" exact>
+            <Home />
+          </AuthRoute>
+          <Route path="/login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    </AuthProvider>
   );
-}
+};
+
+export default App;
